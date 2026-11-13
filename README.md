@@ -28,7 +28,12 @@ magpie plugin login dumate
 
 先读取该目录中的 `auth.json` 和 `.cookie-key`，在内存中解密 Cookie；不修改 DuMate 登录文件。支持 `DUMATE_USER_DATA_DIR` 指定不同的数据目录。环境变量必须对运行 magpie 的进程可见，桌面应用不一定继承终端变量。
 
-网关地址默认是百度官方 `https://dumate-svc.baidu.com/gateway/apis/v1`。如果本机直连该地址不通（例如出口网络被挡），可用 `DUMATE_GATEWAY_BASE` 指定一个中转地址（例如经反向代理中转的 `http://127.0.0.1:55882/gateway/apis/v1`），聊天请求会改走该地址；不设置时保持官方地址。注意中转只负责聊天请求，登录态换 token 仍直连 `console.bce.baidu.com`。
+网关地址默认是百度官方 `https://dumate-svc.baidu.com/gateway/apis/v1`。如果本机直连该地址不通（例如出口网络被挡），可用 `DUMATE_GATEWAY_BASE` 指定一个中转地址（例如经反向代理中转的 `http://127.0.0.1:<本机反代端口>/gateway/apis/v1`），聊天请求会改走该地址；不设置时保持官方地址。注意中转只负责聊天请求，登录态换 token 仍直连 `console.bce.baidu.com`。
+
+中转部署文档：
+
+- [中转指南](docs/relay.md)——什么时候需要中转、架构、反代与隧道搭建、验证与排查。
+- [详细部署过程](docs/deployment.md)——一次完整的中转部署记录：前置检查、SSH 密钥、反代、隧道、Magpie 机器反代、环境变量、systemd 开机自启与排查。
 
 模型配置按当前激活账号查找：
 
