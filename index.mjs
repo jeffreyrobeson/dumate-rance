@@ -29,7 +29,11 @@ const PROVIDER_NAME = "百度搭子 DuMate"
 
 const CONSOLE_BASE = "https://console.bce.baidu.com"
 const LOGIN_URL = "https://login.bce.baidu.com/?from=oa_dumate&redirect=https%3A%2F%2Fconsole.bce.baidu.com%2F"
-const GATEWAY_BASE = "https://dumate-svc.baidu.com/gateway/apis/v1"
+// Gateway base URL. Override with DUMATE_GATEWAY_BASE to route chat requests
+// through a relay (e.g. a reverse proxy on a host that can reach Baidu where
+// this machine cannot). Defaults to the official DuMate gateway. The loader's
+// endpoint allowlist is derived from this value, so a relay URL is accepted.
+const GATEWAY_BASE = (process.env.DUMATE_GATEWAY_BASE ?? "").trim().replace(/\/+$/, "") || "https://dumate-svc.baidu.com/gateway/apis/v1"
 
 const UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) DuMate/1.0.82 Chrome/130.0.0.0 Electron/33.0.0 Safari/537.36"
